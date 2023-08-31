@@ -27,7 +27,11 @@ func main() {
     }
     tmp1.Execute(w, films)
   }
+  h2 := func (w http.ResponseWriter, r *http.Request)  {
+    
+  }
   http.HandleFunc("/",h1)
+  http.HandleFunc("/add-film/",h2)
 
   log.Fatal(http.ListenAndServe(":8000", nil))
 
