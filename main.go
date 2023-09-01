@@ -28,8 +28,12 @@ func main() {
     tmp1.Execute(w, films)
   }
   h2 := func (w http.ResponseWriter, r *http.Request)  {
-    
+    title := r.PostFormValue("title")  
+    director := r.PostFormValue("director")
+    fmt.Println(title)
+    fmt.Println(director)
   }
+
   http.HandleFunc("/",h1)
   http.HandleFunc("/add-film/",h2)
 
