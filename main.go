@@ -5,7 +5,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	
+  "time"	
 )
 
 type Film struct {
@@ -27,11 +27,14 @@ func main() {
     }
     tmp1.Execute(w, films)
   }
+
   h2 := func (w http.ResponseWriter, r *http.Request)  {
+    time.Sleep(1 * time.Second)
     title := r.PostFormValue("title")  
     director := r.PostFormValue("director")
-    fmt.Println(title)
-    fmt.Println(director)
+    htmlStr := fmt.Sprintf("<li class='list-group-item bg-primary text-white'>%s - %s</li>", title, director)
+    tmpl, _ :=template.New("t").Parse(htmlStr)
+    tmpl.Execute(w, nil)
   }
 
   http.HandleFunc("/",h1)
@@ -40,3 +43,4 @@ func main() {
   log.Fatal(http.ListenAndServe(":8000", nil))
 
 }
+
